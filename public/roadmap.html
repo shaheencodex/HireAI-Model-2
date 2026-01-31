@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roadmap Timeline</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #222222;
+      --muted: #6b7280;
+      --road: #2b2b2b;
+      --road-edge: #1f1f1f;
+      --pin: #ff6b6b;
+      --accent1: #ff6aa2;
+      --accent2: #ffb36b;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .wrap {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+      box-sizing: border-box;
+    }
+
+    /* Gradient blob background */
+    .bg {
+      position: absolute;
+      inset: -20% -10% auto -10%;
+      height: 120%;
+      pointer-events: none;
+      z-index: 0;
+      filter: blur(0.3px);
+    }
+
+    .blob {
+      position: absolute;
+      width: 520px;
+      height: 320px;
+      border-radius: 60px;
+      background: radial-gradient(120% 120% at 20% 10%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 18%, transparent 48%),
+                  linear-gradient(135deg, #ffd1dc 0%, #ffafbd 30%, #ff9a7b 60%, #ffd37a 100%);
+      opacity: 0.5;
+      filter: blur(10px) saturate(120%);
+    }
+
+    .blob.a { top: 0; left: -80px; transform: rotate(8deg); }
+    .blob.b { top: -60px; right: -120px; transform: rotate(-6deg); }
+    .blob.c { bottom: -40px; left: 10%; transform: rotate(4deg); }
+    .blob.d { bottom: -80px; right: 5%; transform: rotate(-10deg); }
+
+    .card {
+      position: relative;
+      width: 1200px;
+      max-width: 100%;
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 0;
+      z-index: 1;
+    }
+
+    .stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 2.0 / 1; /* responsive height */
+      min-height: 420px;
+      overflow: hidden;
+    }
+
+    /* Marker pins */
+    .pin {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      transform: translate(-50%, -100%);
+      z-index: 2;
+    }
+
+    /* Step cards */
+    .step {
+      position: absolute;
+      width: 220px;
+      max-width: 28vw;
+      background: rgba(255,255,255,0.92);
+      color: var(--text);
+      text-align: center;
+      transform: translate(-50%, 0);
+      z-index: 4;
+      padding: 10px 12px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      backdrop-filter: blur(2px);
+    }
+
+    .step h4 {
+      margin: 0 0 6px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      font-size: 12px;
+      color: #2f2f2f;
+    }
+
+    .step p {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    .ico {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      margin-bottom: 8px;
+      color: #111;
+    }
+
+    /* Zoom badges (bottom-right) mimicking the example) */
+    .zoom {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      display: grid;
+      place-items: center;
+      z-index: 5;
+      color: #111;
+      font-size: 18px;
+    }
+
+    /* Small ribbon (top-left) */
+    .ribbon {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      width: 66px;
+      height: 66px;
+      overflow: hidden;
+      z-index: 5;
+    }
+
+    .ribbon span {
+      position: absolute;
+      display: block;
+      width: 120px;
+      top: 14px;
+      left: -30px;
+      transform: rotate(-45deg);
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      color: #fff;
+      text-align: center;
+      font-size: 12px;
+      padding: 6px 0;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      letter-spacing: 0.08em;
+    }
+
+    /* Positions for pins and step blocks (right-angled zigzag layout) */
+    .p1 { left: 8%;  top: 65.5%; }
+    .p2 { left: 20%; top: 65.5%; }
+    .p3 { left: 35%; top: 38.5%; }
+    .p4 { left: 50%; top: 69.5%; }
+    .p5 { left: 70%; top: 34.5%; }
+    .p6 { left: 90%; top: 65.5%; }
+
+    /* Step placements near pins */
+    .s1 { left: 12%; top: 72%; }
+    .s2 { left: 20%; top: 78%; }
+    .s3 { left: 35%; top: 28%; }
+    .s4 { left: 50%; top: 78%; }
+    .s5 { left: 70%; top: 28%; }
+    .s6 { left: 90%; top: 72%; }
+
+    /* Seamless horizontal loop: a wide track with two repeated segments */
+    .track {
+      position: absolute;
+      inset: 0;
+      width: 200%;
+      display: flex;
+      animation: scrollLeft 40s linear infinite;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    .segment {
+      position: relative;
+      flex: 0 0 50%;
+      width: 50%;
+      height: 100%;
+    }
+
+    /* Overlap the second segment by 1px to hide any anti-alias seam */
+    .segment + .segment { margin-left: -1px; }
+
+    @keyframes scrollLeft {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Center dashed line style (movement comes from track scrolling) */
+    .road-dash {
+      stroke-dasharray: 20 14;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .track { animation: none !important; }
+    }
+
+    @media (max-width: 900px) {
+      .step { width: 180px; font-size: 12px; }
+      .step h4 { font-size: 11px; }
+      .ico { width: 24px; height: 24px; }
+    }
+
+    @media (max-width: 640px) {
+      .card { padding: 12px 8px; }
+      .stage { min-height: 300px; aspect-ratio: auto; }
+      /* Stop the infinite loop and simplify structure */
+      .track { width: 100%; animation: none; transform: none; }
+      .segment { flex: 0 0 100%; width: 100%; }
+      .segment + .segment { display: none; }
+      /* Stack steps in normal flow for readability */
+      .step {
+        position: static;
+        transform: none;
+        width: 92vw;
+        max-width: 520px;
+        margin: 12px auto;
+        padding: 12px 14px;
+        font-size: 13px;
+      }
+      .step h4 { font-size: 12px; }
+      .ico { width: 22px; height: 22px; }
+      /* Hide pins to reduce clutter on small screens */
+      .pin { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="bg" aria-hidden="true">
+      <div class="blob a"></div>
+      <div class="blob b"></div>
+      <div class="blob c"></div>
+      <div class="blob d"></div>
+    </div>
+
+    <div class="card">
+
+      <div class="stage">
+        <div class="track">
+          <div class="segment">
+          <!-- The winding road is drawn as an SVG path so it scales nicely -->
+          <svg viewBox="0 0 1200 520" width="100%" height="100%" role="img" aria-label="Roadmap path">
+
+          <!-- Base road outline (right-angled stepped path) -->
+          <path d="M0,340 L300,340 L300,200 L520,200 L520,360 L760,360 L760,180 L980,180 L980,340 L1200,340" stroke="var(--road-edge)" stroke-width="42" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+
+          <!-- Main road surface -->
+          <path d="M0,340 L300,340 L300,200 L520,200 L520,360 L760,360 L760,180 L980,180 L980,340 L1200,340" stroke="var(--road)" stroke-width="36" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+
+          <!-- Center dashed line -->
+          <path class="road-dash" d="M0,340 L300,340 L300,200 L520,200 L520,360 L760,360 L760,180 L980,180 L980,340 L1200,340" stroke="#ffffff" stroke-width="6" stroke-linecap="butt" fill="none"/>
+          </svg>
+
+        <!-- Pins -->
+        <svg class="pin p1" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 1C7.6 1 4 4.6 4 9c0 5.2 7 14 8 14s8-8.8 8-14c0-4.4-3.6-8-8-8z" fill="var(--pin)"/>
+          <circle cx="12" cy="9" r="3" fill="#fff"/>
+        </svg>
+        <svg class="pin p2" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 1C7.6 1 4 4.6 4 9c0 5.2 7 14 8 14s8-8.8 8-14c0-4.4-3.6-8-8-8z" fill="var(--pin)"/>
+          <circle cx="12" cy="9" r="3" fill="#fff"/>
+        </svg>
+        <svg class="pin p3" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 1C7.6 1 4 4.6 4 9c0 5.2 7 14 8 14s8-8.8 8-14c0-4.4-3.6-8-8-8z" fill="var(--pin)"/>
+          <circle cx="12" cy="9" r="3" fill="#fff"/>
+        </svg>
+        <svg class="pin p4" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 1C7.6 1 4 4.6 4 9c0 5.2 7 14 8 14s8-8.8 8-14c0-4.4-3.6-8-8-8z" fill="var(--pin)"/>
+          <circle cx="12" cy="9" r="3" fill="#fff"/>
+        </svg>
+        <svg class="pin p5" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 1C7.6 1 4 4.6 4 9c0 5.2 7 14 8 14s8-8.8 8-14c0-4.4-3.6-8-8-8z" fill="var(--pin)"/>
+          <circle cx="12" cy="9" r="3" fill="#fff"/>
+        </svg>
+        <svg class="pin p6" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 1C7.6 1 4 4.6 4 9c0 5.2 7 14 8 14s8-8.8 8-14c0-4.4-3.6-8-8-8z" fill="var(--pin)"/>
+          <circle cx="12" cy="9" r="3" fill="#fff"/>
+        </svg>
+
+        <!-- Steps -->
+        <div class="step s1">
+          <div class="ico">🔎</div>
+          <h4>STEP 01</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+        </div>
+        <!-- <div class="step s2">
+          <div class="ico">⚙️</div>
+          <h4>STEP 02</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+        </div> -->
+        <div class="step s3">
+          <div class="ico">🤝</div>
+          <h4>STEP 03</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+        </div>
+        <div class="step s4">
+          <div class="ico">📅</div>
+          <h4>STEP 04</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+        </div>
+        <div class="step s5">
+          <div class="ico">💡</div>
+          <h4>STEP 05</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+        </div>
+        <div class="step s6">
+          <div class="ico">🎯</div>
+          <h4>STEP 06</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+        </div>
+          </div>
+          <div class="segment">
+          <!-- duplicate segment for seamless loop -->
+          <svg viewBox="0 0 1200 520" width="100%" height="100%" role="img" aria-label="Roadmap path duplicate">
+
+            <path d="M0,340 L300,340 L300,200 L520,200 L520,360 L760,360 L760,180 L980,180 L980,340 L1200,340" stroke="var(--road-edge)" stroke-width="42" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+            <path d="M0,340 L300,340 L300,200 L520,200 L520,360 L760,360 L760,180 L980,180 L980,340 L1200,340" stroke="var(--road)" stroke-width="36" fill="none" stroke-linecap="butt" stroke-linejoin="round"/>
+            <path class="road-dash" d="M0,340 L300,340 L300,200 L520,200 L520,360 L760,360 L760,180 L980,180 L980,340 L1200,340" stroke="#ffffff" stroke-width="6" stroke-linecap="butt" fill="none"/>
+          </svg>
+
+          <!-- Pins duplicate -->
+          <svg class="pin p1" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1C7.6 1 4 4.6 4 9c0 5.2 7 14 8 14s8-8.8 8-14c0-4.4-3.6-8-8-8z" fill="var(--pin)"/><circle cx="12" cy="9" r="3" fill="#fff"/></svg>
+          <svg class="pin p2" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1C7.6 1 4 4.6 4 9c0 5.2 7 14 8 14s8-8.8 8-14c0-4.4-3.6-8-8-8z" fill="var(--pin)"/><circle cx="12" cy="9" r="3" fill="#fff"/></svg>
+          <svg class="pin p3" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1C7.6 1 4 4.6 4 9c0 5.2 7 14 8 14s8-8.8 8-14c0-4.4-3.6-8-8-8z" fill="var(--pin)"/><circle cx="12" cy="9" r="3" fill="#fff"/></svg>
+          <svg class="pin p4" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1C7.6 1 4 4.6 4 9c0 5.2 7 14 8 14s8-8.8 8-14c0-4.4-3.6-8-8-8z" fill="var(--pin)"/><circle cx="12" cy="9" r="3" fill="#fff"/></svg>
+          <svg class="pin p5" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1C7.6 1 4 4.6 4 9c0 5.2 7 14 8 14s8-8.8 8-14c0-4.4-3.6-8-8-8z" fill="var(--pin)"/><circle cx="12" cy="9" r="3" fill="#fff"/></svg>
+          <svg class="pin p6" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1C7.6 1 4 4.6 4 9c0 5.2 7 14 8 14s8-8.8 8-14c0-4.4-3.6-8-8-8z" fill="var(--pin)"/><circle cx="12" cy="9" r="3" fill="#fff"/></svg>
+
+          <!-- Steps duplicate -->
+          <div class="step s1"><div class="ico">🔎</div><h4>STEP 01</h4><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p></div>
+          <!-- <div class="step s2"><div class="ico">⚙️</div><h4>STEP 02</h4><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p></div> -->
+          <div class="step s3"><div class="ico">🤝</div><h4>STEP 03</h4><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p></div>
+          <div class="step s4"><div class="ico">📅</div><h4>STEP 04</h4><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p></div>
+          <div class="step s5"><div class="ico">💡</div><h4>STEP 05</h4><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p></div>
+          <div class="step s6"><div class="ico">🎯</div><h4>STEP 06</h4><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p></div>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+/* Mobile-only overrides for landing page without changing desktop */
+@media (max-width: 640px) {
+  .landing {
+    margin-top: 36px !important;
+    padding: 0 12px !important;
+  }
+  .upgrade-btn { display: none !important; }
+  .landing-title {
+    font-size: 32px !important;
+    line-height: 1.2 !important;
+  }
+  .landing-subtitle {
+    font-size: 14px !important;
+    max-width: 90% !important;
+  }
+  .landing-cta {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 12px !important;
+    margin-top: 20px !important;
+  }
+  .landing-cta a {
+    width: 100% !important;
+    height: 50px !important;
+    font-size: 16px !important;
+    padding: 0 16px !important;
+    border-radius: 10px !important;
+  }
+}

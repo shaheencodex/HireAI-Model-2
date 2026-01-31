@@ -1,0 +1,319 @@
+/* --- Layout --- */
+.auth-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden; 
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  align-items: center;
+  /* gap: 32px; */
+  padding: 44px;
+  padding-right: 64px; /* extra right space for all auth pages */
+  background:
+    linear-gradient(0deg, rgba(255,255,255,0.9), rgba(255,255,255,0.9)),
+    radial-gradient(900px 540px at 102% -6%, rgba(18,87,86,0.16) 0%, rgba(18,87,86,0) 60%),
+    radial-gradient(900px 540px at -6% 102%, rgba(18,87,86,0.16) 0%, rgba(18,87,86,0) 60%),
+    repeating-linear-gradient(0deg, rgba(0,0,0,0.03) 0, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 36px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 36px),
+    #f8fafc;
+}
+
+@media (max-width: 1024px) {
+  .auth-container {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    padding: 16px;
+    height: auto; 
+    min-height: 100vh;
+  }
+  .hero {
+    display: none; 
+  }
+}
+
+/* --- Hero --- */
+.hero {
+  max-width: 520px;
+  padding-left: 0; 
+}
+.hero .brand {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 24px;
+}
+.hero .title {
+  font-size: 36px; 
+  line-height: 1.2;
+  font-weight: 700;
+  font-family: "Nohemi";
+  margin: 0 0 12px;
+  color: #111827;
+}
+.hero .subtitle {
+  color: #6b7280;
+  font-size: 15px; 
+  line-height: 1.5;
+  font-family: "Nohemi";
+  font-weight: 300;
+}
+.hero-illustration {
+  margin-top: 40px;
+}
+
+
+/* --- Card --- */
+.card {
+  background: #ffffff;
+  border-radius: 16px; 
+  padding: 28px;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08); 
+  border: 1px solid #eaeef4;
+}
+.card.card-login { padding-left: 32px; }
+.card-header {
+  margin-bottom: 12px;
+}
+.card-title {
+  font-size: 24px;
+  font-family: "Nohemi", "Poppins", sans-serif;
+  /* font-weight: 500; */
+  color: #111827;
+  margin: 0 0 4px;
+}
+.card-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  font-family: "Manrope";
+  font-weight: 500;
+  padding-top: 20px;
+}
+
+/* --- Form --- */
+.form {
+  display: grid;
+  gap: 12px; /* Slightly more space */
+  margin-top: 16px;
+}
+.field {
+  display: grid;
+  gap: 6px;
+}
+.field.with-icon { position: relative; }
+.input-wrap { position: relative; width: 100%; }
+.field-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  opacity: 0.85;
+}
+/* Remove placeholder circle when a real icon is present */
+.field.with-icon.email::before { content: none; }
+.field.with-icon.name::before { content: none; }
+.field.with-icon.password-icon::before { content: none; }
+.label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111827;
+}
+.input {
+  height: 48px;
+  border: none;
+  border-bottom: 1px solid #e5e7eb;
+  border-radius: 0;
+  padding: 8px 40px 8px 40px; /* leave space for right toggle and left icon */
+  font-size: 14px;
+  outline: none;
+  transition: box-shadow .2s ease, border-color .2s ease;
+  width: 100%;
+  display: block;
+  box-sizing: border-box; /* prevent overflow from padding */
+}
+.input:focus {
+  border-color: #125759;
+  box-shadow: 0 1px 0 0 #125759;
+}
+.password {
+  position: relative;
+}
+/* Adjust toggle position for new input height */
+.toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  padding: 0;
+  font-size: 18px; 
+}
+
+/* Simple placeholder leading icon circles for visual alignment */
+.field.with-icon::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 10px;
+  bottom: 10px;
+  border: 1.5px solid #9ca3af;
+  border-radius: 50%;
+}
+
+/* --- Error Message --- */
+.error-message {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fef2f2;
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid #fecaca;
+}
+
+/* --- Success/Info Message --- */
+.success-message {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f0fdf4;
+  color: #166534;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid #bbf7d0;
+}
+
+/* --- Top Ribbon --- */
+.top-ribbon {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+  background: #f0fdf4;
+  color: #166534;
+  border-bottom: 1px solid #bbf7d0;
+  font-size: 14px;
+}
+
+/* --- Buttons --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all .3s ease-out; /* Transition for hover */
+}
+.btn:disabled { 
+  opacity: 0.6; 
+  cursor: not-allowed; 
+}
+
+.btn-primary {
+  color: white;
+  background: #125759; /* brand green */
+  background-size: 200% auto;
+  width: 100%;
+}
+.btn-primary:not(:disabled):hover {
+  background: #0f4748;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+.btn-primary:disabled {
+  background: #e5e7eb;
+  color: #9ca3af;
+}
+
+/* Google full-width button */
+.btn-google {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 48px;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff; 
+
+  color: #000000;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+.btn-google:hover {
+  background: #ffffff;
+}
+
+.btn-icon {
+  width: 56px;
+  height: 56px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  transition: all .2s ease-out;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.btn-icon:not(:disabled):hover {
+  background-color: #f8fafc;
+  border-color: #e0e4e9;
+}
+
+
+/* --- Divider --- */
+.divider {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  color: #9ca3af;
+  font-size: 12px;
+  margin: 20px 0;
+}
+.divider::before,
+.divider::after {
+  content: "";
+  height: 1px;
+  background: #e5e7eb;
+  display: block;
+}
+
+/* --- Muted Link --- */
+.muted {
+  text-align: center;
+  color: #6b7280;
+  font-size: 13px;
+  font-family: "Manrope", "Poppins", sans-serif;
+  margin-top: 12px;
+}
+.muted a { 
+  color: #4f46e5; 
+  text-decoration: none; 
+}
+.muted a:hover {
+  text-decoration: underline;
+}
