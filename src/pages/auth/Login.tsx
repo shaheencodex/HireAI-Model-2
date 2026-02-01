@@ -13,9 +13,9 @@ import lockIcon from "../../assets/images/lock-password.svg";
 import { Link, useLocation } from "react-router-dom";
 import Buttton from "../../components/Buttton";
 import googleIcon from "../../assets/images/google.svg";
-import secureIllustration from "../../assets/images/Secure login-bro 1.svg";
+import secureIllustration from "../../assets/images/secure-login1.png";
 import overlayBg from "../../assets/images/overlay-gradient.svg";
-import logo from "../../assets/images/logo.svg";
+import logo from "../../assets/images/AMZLogo.png";
 type VerifyLocationState = { verifyPrompt?: boolean; email?: string } | null;
 
 export default function Login() {
@@ -35,7 +35,7 @@ export default function Login() {
       setMessage(
         `Please verify your email${
           e ? ` (${e})` : ""
-        }. We have sent a verification link to your inbox.`
+        }. We have sent a verification link to your inbox.`,
       );
       try {
         localStorage.setItem("verifyEmail", e);
@@ -48,7 +48,7 @@ export default function Login() {
       const stored = localStorage.getItem("verifyEmail");
       if (stored) {
         setMessage(
-          `Please verify your email (${stored}). We have sent a verification link to your inbox.`
+          `Please verify your email (${stored}). We have sent a verification link to your inbox.`,
         );
       }
     } catch (err) {
@@ -65,13 +65,13 @@ export default function Login() {
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
-        password
+        password,
       );
       if (!userCredential.user.emailVerified) {
         await sendEmailVerification(userCredential.user);
         await signOut(auth);
         setMessage(
-          "Verification email sent. Please check your inbox and verify your email to continue."
+          "Verification email sent. Please check your inbox and verify your email to continue.",
         );
         return;
       }
@@ -84,7 +84,7 @@ export default function Login() {
     } catch (error) {
       console.error("Login error:", error);
       setError(
-        "Unable to login. Please check your credentials or try again later."
+        "Unable to login. Please check your credentials or try again later.",
       );
       setIsLoggingIn(false);
     } finally {
@@ -103,7 +103,6 @@ export default function Login() {
     }
   };
 
-
   return (
     <>
       {message && <div className="top-ribbon">{message}</div>}
@@ -111,15 +110,22 @@ export default function Login() {
         className="auth-container"
         style={{
           backgroundImage: `url(${overlayBg})`,
+          backgroundColor: "#1d1f27",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
         <div className="hero">
-           <Link to="/" aria-label="Go to home">
-          <img src={logo} alt="" width={120} height={120} style={{ cursor: 'pointer' }} />
-        </Link>
+          <Link to="/" aria-label="Go to home">
+            <img
+              src={logo}
+              alt=""
+              width={320}
+              height={320}
+              style={{ cursor: "pointer" }}
+            />
+          </Link>
           <h2 className="title">Back to smarter hiring</h2>
           <p className="subtitle">Your AI assistant is ready to streamline.</p>
           <div className="hero-illustration">
@@ -154,7 +160,7 @@ export default function Login() {
                 />
                 <input
                   id="login-email"
-                  className="input"
+                  className="input text-white"
                   type="email"
                   placeholder="Enter your email"
                   value={email}
@@ -165,7 +171,7 @@ export default function Login() {
             </div>
 
             <div className="field with-icon password-icon">
-              <label htmlFor="login-password" className="label">
+              <label htmlFor="login-password" className="label text-white">
                 Password
               </label>
               <div className="input-wrap">
@@ -177,7 +183,7 @@ export default function Login() {
                 />
                 <input
                   id="login-password"
-                  className="input"
+                  className="input text-white"
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   value={password}
@@ -208,7 +214,7 @@ export default function Login() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 8,
-                  color: "#374151",
+                  color: "gray",
                   fontSize: 14,
                 }}
               >
@@ -219,7 +225,10 @@ export default function Login() {
                 />
                 Remember me
               </label>
-              <Link to="/forgot-password" style={{ color: "#125759", fontSize: 14 }}>
+              <Link
+                to="/forgot-password"
+                style={{ color: "#01a982", fontSize: 14 }}
+              >
                 Forgot password
               </Link>
             </div>
@@ -248,14 +257,23 @@ export default function Login() {
               bgColor="#ffffff"
               textColor="#000000"
               borderColor="#e5e7eb"
-              iconLeft={
-                <img src={googleIcon} alt="Google" />
-              }
+              iconLeft={<img src={googleIcon} alt="Google" />}
             />
           </div>
 
           <div className="muted">
-            Already have an account? <Link to="/signup" style={{ color: "#125759", fontFamily: "Manrope", fontWeight: "bold", fontSize: 14 }}>Signup</Link>
+            Already have an account?{" "}
+            <Link
+              to="/signup"
+              style={{
+                color: "#01a982",
+                fontFamily: "Manrope",
+                fontWeight: "bold",
+                fontSize: 14,
+              }}
+            >
+              Signup
+            </Link>
           </div>
         </div>
       </div>

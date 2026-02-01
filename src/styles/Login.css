@@ -68,10 +68,10 @@
   font-weight: 700;
   font-family: "Nohemi";
   margin: 0 0 12px;
-  color: #111827;
+  color: #ffffff;
 }
 .hero .subtitle {
-  color: #6b7280;
+  color: gray;
   font-size: 15px;
   line-height: 1.5;
   font-family: "Nohemi";
@@ -83,15 +83,15 @@
 
 /* --- Card --- */
 .card {
-  background: #ffffff;
+  background: #292d3a;
   border-radius: 16px;
   padding: 28px;
   padding-left: 24px;
   padding-right: 24px;
   width: 100%;
   max-width: 460px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
-  border: 1px solid #eaeef4;
+  box-shadow: 4px 4px 10px rgba(198, 191, 191, 0.12);
+  border: none;
 }
 .card.card-login {
   padding-left: 32px;
@@ -103,12 +103,12 @@
   font-size: 24px;
   font-family: "Nohemi", "Poppins", sans-serif;
   /* font-weight: 500; */
-  color: #111827;
+  color: #ffffff;
   margin: 0 0 4px;
 }
 .card-subtitle {
   font-size: 14px;
-  color: #6b7280;
+  color: #f7f7f7;
   font-family: "Manrope";
   font-weight: 500;
   padding-top: 20px;
@@ -154,12 +154,12 @@
 .label {
   font-size: 13px;
   font-weight: 500;
-  color: #111827;
+  color: #ffffff;
 }
 .input {
   height: 48px;
   border: none;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid gray;
   border-radius: 0;
   padding: 8px 40px 8px 40px; /* leave space for right toggle and left icon */
   font-size: 14px;
@@ -170,10 +170,11 @@
   width: 100%;
   display: block;
   box-sizing: border-box; /* prevent overflow from padding */
+  color: #ffffff;
 }
 .input:focus {
-  border-color: #125759;
-  box-shadow: 0 1px 0 0 #125759;
+  border-color: #01a982;
+  box-shadow: 0 1px 0 0 #01a982;
 }
 .password {
   position: relative;
@@ -187,11 +188,24 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #6b7280;
+  color: #ffffff;
   padding: 0;
   font-size: 18px;
 }
-
+.mail-icon {
+  filter: brightness(0) invert(1);
+}
+.field-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  opacity: 0.85;
+  filter: invert(1);
+}
 /* Simple placeholder leading icon circles for visual alignment */
 .field.with-icon::before {
   content: "";
@@ -338,7 +352,7 @@
 /* --- Muted Link --- */
 .muted {
   text-align: center;
-  color: #6b7280;
+  color: gray;
   font-size: 13px;
   font-family: "Manrope", "Poppins", sans-serif;
   margin-top: 12px;

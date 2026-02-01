@@ -211,21 +211,21 @@ export default function LandingPage() {
             style={{
               border: `1px solid ${colors.primary}22`,
               borderRadius: 12,
-              padding: 16,
+              padding: 10,
               display: "flex",
               flexDirection: "column",
               gap: 12,
             }}
           >
             <div style={{ fontWeight: 700, color: colors.primary }}>Basic</div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: "#0f172a" }}>
+            <div style={{ fontSize: 24, fontWeight: 800, color: "#ffffff" }}>
               Free
             </div>
             <ul
               style={{
                 margin: 0,
                 padding: 5,
-                color: "#374151",
+                color: "#ffffff",
                 lineHeight: 1.6,
               }}
             >
@@ -260,7 +260,7 @@ export default function LandingPage() {
             style={{
               border: `2px solid ${colors.secondary}`,
               borderRadius: 12,
-              padding: 16,
+              padding: 10,
               display: "flex",
               flexDirection: "column",
               gap: 12,
@@ -268,14 +268,14 @@ export default function LandingPage() {
             }}
           >
             <div style={{ fontWeight: 700, color: colors.primary }}>Pro</div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: "#0f172a" }}>
+            <div style={{ fontSize: 24, fontWeight: 800, color: "#ffffff" }}>
               $19<span style={{ fontWeight: 500, fontSize: 14 }}>/mo</span>
             </div>
             <ul
               style={{
                 margin: 0,
                 padding: 5,
-                color: "#374151",
+                color: "#ffffff",
                 lineHeight: 1.6,
               }}
             >
@@ -314,7 +314,7 @@ export default function LandingPage() {
             style={{
               border: `1px solid ${colors.primary}22`,
               borderRadius: 12,
-              padding: 16,
+              padding: 10,
               display: "flex",
               flexDirection: "column",
               gap: 12,
@@ -323,14 +323,14 @@ export default function LandingPage() {
             <div style={{ fontWeight: 700, color: colors.primary }}>
               Enterprise
             </div>
-            <div style={{ fontSize: 24, fontWeight: 800, color: "#0f172a" }}>
+            <div style={{ fontSize: 24, fontWeight: 800, color: "#ffffff" }}>
               Contact
             </div>
             <ul
               style={{
                 margin: 0,
                 padding: 5,
-                color: "#374151",
+                color: "#ffffff",
                 lineHeight: 1.6,
               }}
             >
@@ -350,9 +350,9 @@ export default function LandingPage() {
                 marginTop: "auto",
                 height: 50,
                 borderRadius: 10,
-                border: `1px solid ${colors.disabled}`,
+                border: `1px solid ${colors.primary}`,
                 background: "transparent",
-                color: colors.disabled,
+                color: colors.primary,
                 fontWeight: 600,
                 textDecoration: "none",
                 display: "inline-flex",
