@@ -51,14 +51,16 @@ export default function AppRoutes() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/landingpage" element={<LandingPage />} />
 
-        <Route
+        {/*  <Route
           path="/login"
           element={!isLoggedIn ? <Login /> : <Navigate to="/dashboard" />}
         />
         <Route
           path="/signup"
           element={!isLoggedIn ? <Register /> : <Navigate to="/dashboard" />}
-        />
+        /> */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Register />} />
         <Route path="/verify-email-sent" element={<VerifyEmailSent />} />
         <Route path="/auth-action" element={<EmailAction />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -129,16 +131,16 @@ function DashboardLayout() {
           <div className="flex items-center">
             <button
               onClick={toggleSidebar}
-              className="mr-4 p-2 rounded-lg text-white hover:bg-gray-100 hover:text-black"
+              className="mr-4 p-2 rounded-lg text-[#01a982] hover:bg-gray-100 hover:text-black "
               aria-label="Toggle menu"
             >
               ☰
             </button>
             <h1
-              className="text-xl text-[#ffffff]"
+              className="text-xl text-white"
               style={{ fontFamily: "Nohemi, sans-serif" }}
             >
-              Welcome back, Karthik
+              Welcome back, <span className="text-[#01a982]">Karthik</span>
             </h1>
           </div>
 
@@ -151,7 +153,7 @@ function DashboardLayout() {
 
         <div className="mx-6 h-px bg-white mt-2"></div>
 
-        <main className="flex-1 overflow-auto">
+        <main className="flex-1 overflow-auto sidebar-scrollbar">
           <Outlet />
         </main>
       </div>

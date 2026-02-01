@@ -71,7 +71,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
       </div>
 
       {/* Menu Section */}
-      <div className="flex flex-col grow overflow-y-auto">
+      <div className="flex flex-col grow overflow-y-auto sidebar-scrollbar">
         {isOpen && (
           <div className="px-6 pt-2">
             <h2 className="text-gray-300 text-sm font-medium mb-2">Menu</h2>

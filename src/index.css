@@ -136,6 +136,49 @@
   font-style: normal;
   font-display: swap;
 }
+
+/* ================================
+   Sidebar Custom Scrollbar
+   ================================ */
+/* scrollbar width */
+.sidebar-scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* scrollbar track */
+.sidebar-scrollbar::-webkit-scrollbar-track {
+  background: #1d243d;
+}
+
+/* scrollbar thumb */
+.sidebar-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #6b6b6b;
+  border-radius: 10px;
+  border: 3px solid #0b1025;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #8a8a8a;
+}
+
+/* UP arrow */
+.sidebar-scrollbar::-webkit-scrollbar-button:single-button:vertical:decrement {
+  height: 14px;
+  background-color: #1d243d;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='gray'><polygon points='12,6 6,14 18,14'/></svg>");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* DOWN arrow */
+.sidebar-scrollbar::-webkit-scrollbar-button:single-button:vertical:increment {
+  height: 14px;
+  background-color: #1d243d;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='gray'><polygon points='6,10 18,10 12,18'/></svg>");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 @layer components {
   .fc .fc-toolbar-title {
     @apply !text-white !text-xl !font-semibold;
@@ -143,7 +186,7 @@
 
   .fc .fc-button {
     @apply !bg-white !text-black !rounded-lg 
-           hover:!bg-gray-700  hover:!text-white
+           hover:!bg-gray-700 hover:!text-white 
            !transition-colors;
   }
 }

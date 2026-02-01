@@ -74,7 +74,7 @@ export default function Dashboard() {
 
       {/* Recent Activity */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-[#292d3a] rounded-lg shadow-lg shadow-gray-700 p-6">
+        <div className="bg-[#292d3a] rounded-lg shadow p-6">
           <h2 className="text-lg font-semibold mb-4 text-gray-100">
             Recent Interviews
           </h2>
@@ -108,7 +108,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="bg-[#292d3a] rounded-lg shadow-lg shadow-gray-700 p-6">
+        <div className="bg-[#292d3a] rounded-lg shadow p-6">
           <h2 className="text-lg font-semibold mb-4 text-gray-100">
             Recent Job Descriptions
           </h2>
