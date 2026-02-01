@@ -1,47 +1,55 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { onAuthStateChanged } from 'firebase/auth'
-import { auth } from '../firebase/firebase'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase/firebase";
 
-import LandingPage from '../pages/landing/Landingpage'
-import Login from '../pages/auth/Login'
-import Dashboard from '../pages/main/Dashboard'
-import Register from '../pages/auth/Signup'
-import VerifyEmailSent from '../pages/auth/VerifyEmailSent'
-import EmailAction from '../pages/auth/EmailAction'
-import ForgotPassword from '../pages/auth/Forgotpassword'
-import HireAISkeleton from '../components/HireAISkeleton'
-import Calendar from '../pages/calendar/Calendar'
-import JobDescription from '../pages/job-description/JobDescription'
-import ResumeMatch from '../pages/resume-match/ResumeMatch'
-import AIInterview from '../pages/ai-interview/AIInterview'
-import Summary from '../pages/summary/Summary'
-import UserManagement from '../pages/user-management/UserManagement'
-import Subscription from '../pages/subscription/Subscription'
-import Help from '../pages/help/Help'
-import Sidebar from '../components/sidebar'
+import LandingPage from "../pages/landing/Landingpage";
+import Login from "../pages/auth/Login";
+import Dashboard from "../pages/main/Dashboard";
+import Register from "../pages/auth/Signup";
+import VerifyEmailSent from "../pages/auth/VerifyEmailSent";
+import EmailAction from "../pages/auth/EmailAction";
+import ForgotPassword from "../pages/auth/Forgotpassword";
+import HireAISkeleton from "../components/HireAISkeleton";
+import Calendar from "../pages/calendar/Calendar";
+import JobDescription from "../pages/job-description/JobDescription";
+import ResumeMatch from "../pages/resume-match/ResumeMatch";
+import AIInterview from "../pages/ai-interview/AIInterview";
+import Summary from "../pages/summary/Summary";
+import UserManagement from "../pages/user-management/UserManagement";
+import Subscription from "../pages/subscription/Subscription";
+import Help from "../pages/help/Help";
+import Sidebar from "../components/sidebar";
 
 export default function AppRoutes() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null)
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
-      setIsLoggedIn(!!user && !!user.emailVerified)
-    })
-    return () => unsub()
-  }, [])
+      setIsLoggedIn(!!user && !!user.emailVerified);
+    });
+    return () => unsub();
+  }, []);
 
   if (isLoggedIn === null) {
-    return <div>
-      <HireAISkeleton />
-    </div>
+    return (
+      <div>
+        <HireAISkeleton />
+      </div>
+    );
   }
 
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/landingpage" element={<LandingPage />} /> 
+        <Route path="/landingpage" element={<LandingPage />} />
 
         <Route
           path="/login"
@@ -72,7 +80,7 @@ export default function AppRoutes() {
         <Route path="*" element={<div>Page Not Found</div>} />
       </Routes>
     </Router>
-  )
+  );
 }
 
 function DashboardLayout() {
@@ -89,8 +97,8 @@ function DashboardLayout() {
     // Initial check
     handleResize();
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const toggleSidebar = () => setIsOpen((prev) => !prev);
@@ -105,48 +113,48 @@ function DashboardLayout() {
           aria-hidden="true"
         />
       )}
-      
+
       {/* Sidebar */}
       <div
         className={`fixed md:static z-50 transition-transform duration-300 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+          isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0`}
       >
         <Sidebar isOpen={!isMobile} toggleSidebar={toggleSidebar} />
       </div>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <header className="flex items-center justify-between px-4 md:px-10 py-4 sticky top-0 z-30 bg-gray-100">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden bg-[#1d1f27]">
+        <header className="flex items-center justify-between px-4 md:px-10 py-4 sticky top-0 z-30 bg-[#1d1f27] ">
           <div className="flex items-center">
             <button
               onClick={toggleSidebar}
-              className="mr-4 p-2 rounded-lg hover:bg-gray-200"
+              className="mr-4 p-2 rounded-lg text-white hover:bg-gray-100 hover:text-black"
               aria-label="Toggle menu"
             >
               ☰
             </button>
             <h1
-              className="text-xl text-[#222222]"
-              style={{ fontFamily: 'Nohemi, sans-serif' }}
+              className="text-xl text-[#ffffff]"
+              style={{ fontFamily: "Nohemi, sans-serif" }}
             >
               Welcome back, Karthik
             </h1>
           </div>
 
           <div className="flex items-center">
-            <div className="w-10 h-10 rounded-full bg-[#125756] text-white font-bold flex items-center justify-center shadow-md">
+            <div className="w-10 h-10 rounded-full bg-[#01a982] text-white font-bold flex items-center justify-center shadow-md">
               K
             </div>
           </div>
         </header>
 
-        <div className="mx-6 h-px bg-black/20 mt-2"></div>
+        <div className="mx-6 h-px bg-white mt-2"></div>
 
         <main className="flex-1 overflow-auto">
           <Outlet />
         </main>
       </div>
     </div>
-  )
+  );
 }
